@@ -1,3 +1,4 @@
+import com.example.storageservice.controller.UserHomeController; // Add this import
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -6,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
-class StorageServiceApplicationTests {
+@SpringBootTest(classes = com.example.storageservice.StorageServiceApplication.class)
+public class StorageServiceApplicationTests {
 
     @Autowired
     private UserHomeController userHomeController;
