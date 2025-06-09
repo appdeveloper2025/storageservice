@@ -22,3 +22,52 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Maven target directory
+/target/
+
+# Logs
+*.log
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# VS Code
+.vscode/
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Windows backup files
+*.bak
+
+# Test reports
+/surefire-reports/
+/failsafe-reports/
+
+# Local environment files
+.env
+*.local
+
+# Node modules (if any frontend code)
+node_modules/
+
+# Coverage reports
+/coverage/
+*.exec
+
+# Other
+*.swp
+*.swo
