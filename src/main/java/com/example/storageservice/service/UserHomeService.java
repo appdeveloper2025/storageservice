@@ -3,19 +3,16 @@ package com.example.storageservice.service;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.IOException;
 
 @Service
 public class UserHomeService {
+    private static final String BASE_PATH = "/opt/home/";
 
-    public void createDirectory(String userId) throws IOException {
-        String directoryPath = "/opt/home/" + userId;
-        File directory = new File(directoryPath);
-        if (!directory.exists()) {
-            boolean created = directory.mkdirs();
-            if (!created) {
-                throw new IOException("Failed to create directory: " + directoryPath);
-            }
+    public boolean createUserHome(String userid) {
+        File dir = new File(BASE_PATH + userid);
+        if (dir.exists()) {
+            return false;
         }
+        return dir.mkdirs();
     }
 }

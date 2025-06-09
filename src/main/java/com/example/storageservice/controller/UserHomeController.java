@@ -1,39 +1,23 @@
 package com.example.storageservice.controller;
 
-import com.example.storageservice.service.UserHomeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.regex.Pattern;
+import java.io.File;
 
 @RestController
 @RequestMapping("/api")
 public class UserHomeController {
 
-    private final UserHomeService userHomeService;
-
-    @Autowired
-    public UserHomeController(UserHomeService userHomeService) {
-        this.userHomeService = userHomeService;
-    }
-
     @PostMapping("/createUserHome")
-    public ResponseEntity<String> createUserHome(@RequestParam String userid) {
-        if (!isValidUserId(userid)) {
-            return ResponseEntity.badRequest().body("Invalid userid. It must contain only lowercase letters and numbers.");
+    public ResponseEntity<String> createUserHome(@RequestBody String userId) {
+        if (!userId.matches("^[a-z0-9]+$")) {
+            return ResponseEntity.badRequest().body("Invalid user ID");
         }
-
-        boolean isCreated = userHomeService.createDirectory(userid);
-        if (isCreated) {
-            return ResponseEntity.ok("User home directory created successfully at /opt/home/" + userid);
-        } else {
-            return ResponseEntity.status(500).body("Failed to create user home directory.");
+        File dir = new File("/opt/home/" + userId);
+        if (!dir.exists()) {
+            dir.mkdirs();
         }
-    }
-
-    private boolean isValidUserId(String userid) {
-        String regex = "^[a-z0-9]+$";
-        return Pattern.matches(regex, userid);
+        return ResponseEntity.status(201).body("User home created for: " + userId);
     }
 }
